@@ -3,6 +3,7 @@ import { config } from ".";
 import { ProxyErrorResponse, ServiceConfig } from "../types";
 import logger from "./logger";
 import { Application } from "express";
+import { verifyToken } from "../middlewares/verification";
 
 class ProxyService {
     private static readonly serviceConfigs : ServiceConfig[] = [
@@ -60,7 +61,10 @@ class ProxyService {
     public static setUpProxy(app: Application): void {
         this.serviceConfigs.forEach((service)=>{
             const proxyOptions = this.createProxyOptions(service);
-            app.use(service.path, createProxyMiddleware(proxyOptions));
+            if (service.name === "auth-service"){
+                app.use(service.path, createProxyMiddleware(proxyOptions));
+            }
+            app.use(service.path, verifyToken, createProxyMiddleware(proxyOptions));
             logger.info(`Configured proxy for ${service.name} at ${service.path}`);
         })
     }

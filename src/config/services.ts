@@ -19,6 +19,13 @@ class ProxyService {
             url: config.POST_SERVICE_URL,
             pathRewrite: {"^/": "/api/v1/post/"},
             name: "post-service",
+            timeout: 50000
+        },
+        {
+            path: "/api/v1/comment",
+            url: config.POST_SERVICE_URL,
+            pathRewrite: {"^/": "/api/v1/comment/"},
+            name: "comment-service",
             timeout: 5000
         },
     ]

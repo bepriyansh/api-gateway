@@ -15,6 +15,7 @@ import router from './routes';
 
 const app = express();
 
+app.set('trust proxy', true);
 app.use(helmet());
 app.use(cors({
     origin:true,

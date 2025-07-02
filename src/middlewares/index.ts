@@ -15,3 +15,13 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
   logger.error('Unhandled error:', err);
     res.status(500).json({ success: false, message: "Internal server error" });
 }
+
+export const addTestCookie = (req: Request, res: Response, next: NextFunction) => {
+  res.cookie('testCookie', 'HelloWorld', {
+        httpOnly: false,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 60000,
+    });
+    next();
+}

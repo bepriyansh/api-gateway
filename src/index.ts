@@ -9,7 +9,7 @@ import { limiter } from './middlewares/rate_limiter';
 import logger from './config/logger';
 import { config } from './config';
 import { proxyServices } from './config/services';
-import { errorHandler, notFound, requestLogger } from './middlewares';
+import { addTestCookie, errorHandler, notFound, requestLogger } from './middlewares';
 import cookieParser from 'cookie-parser';
 import router from './routes';
 
@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // Logging Requests
 app.use(requestLogger);
-
+app.use(addTestCookie);
 app.use('/health', (req:Request, res:Response, next:NextFunction) => {
     res.status(200).json({ success: true, message: "Server is healthy" });
 })

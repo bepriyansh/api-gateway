@@ -19,7 +19,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 export const addTestCookie = (req: Request, res: Response, next: NextFunction) => {
   res.cookie('testCookie', 'HelloWorld', {
         httpOnly: false,
-        secure: true,
+        secure: false,
         sameSite: 'none',
         maxAge: 60000,
     });
